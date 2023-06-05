@@ -16,7 +16,7 @@ const CheckFeedback = ({good,neutral,bad,total}) => {
 
 const StatisticLine = ({text,value}) => {
   return (
-    <p>{text}: {value}</p>
+    <tr>{text}: {value}</tr>
   )
 }
 
@@ -43,14 +43,14 @@ const Statistics = ({good,neutral,bad,total}) => {
   const posString=`${pos} %`
 
   return(
-      <div>
+      <table>
         <StatisticLine text="Good" value={good} />
         <StatisticLine text="Neutral" value={neutral} />
         <StatisticLine text="Bad" value={bad} />
         <StatisticLine text="Total" value={total} />
         <StatisticLine text="Average" value={average} />
         <StatisticLine text="Positive" value={posString} />
-      </div>
+      </table>
   )
 } 
 
