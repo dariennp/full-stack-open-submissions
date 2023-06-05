@@ -14,6 +14,12 @@ const CheckFeedback = ({good,neutral,bad,total}) => {
   return <Statistics good={good} neutral={neutral} bad = {bad} total={total} />
 }
 
+const StatisticLine = ({text,value}) => {
+  return (
+    <p>{text}: {value}</p>
+  )
+}
+
 const Statistics = ({good,neutral,bad,total}) => {
 
   const calcAverage = () => {
@@ -29,17 +35,21 @@ const Statistics = ({good,neutral,bad,total}) => {
       return 0
     }
 
-    return( good / total )*100
+    return ( good / total )*100
   }
+  
+  const average=calcAverage()
+  const pos=calcPositive()
+  const posString=`${pos} %`
 
   return(
       <div>
-        <p> Good: {good} </p>
-        <p> Neutral: {neutral}</p>
-        <p> Bad: {bad}</p>
-        <p> Total: {total}</p>
-        <p> Average: {calcAverage()} </p>
-        <p> Positive: {calcPositive()}% </p>
+        <StatisticLine text="Good" value={good} />
+        <StatisticLine text="Neutral" value={neutral} />
+        <StatisticLine text="Bad" value={bad} />
+        <StatisticLine text="Total" value={total} />
+        <StatisticLine text="Average" value={average} />
+        <StatisticLine text="Positive" value={posString} />
       </div>
   )
 } 
