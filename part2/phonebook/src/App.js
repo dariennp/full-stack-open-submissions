@@ -2,13 +2,16 @@ import { useState, useEffect } from 'react'
 import ShowPerson from './ShowPerson'
 import PersonForm from './PersonForm'
 import Filter from './Filter'
+import Notification from './Notification'
 import personService from './services/persondb'
+import './index.css'
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newFilter, setNewFilter]= useState('')
+  const [errorMessage, setErrorMessage] = useState(null)
 
   const addPersons = () => {
  
@@ -61,8 +64,13 @@ const App = () => {
       .create(newPerson)
       .then(newEntry => {
         setPersons(persons.concat(newEntry))
+        setErrorMessage(`${newPerson.name} has been added`)
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
         setNewName('')
         setNewNumber('')
+        
       })
       
     }
@@ -74,6 +82,9 @@ const App = () => {
     if (r)
     {
       personService.remove(id)
+      .catch(error => {
+        setErrorMessage(`${name} has already been removed from the server`)
+      })
       setPersons(persons.filter(p => p.id !== id))
     }
   }
@@ -92,7 +103,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-
+      <Notification className="error" message={errorMessage}/>
       <Filter newFilter={newFilter} handleFilter={handleFilter} />
       
       <h2> Add new person </h2>
