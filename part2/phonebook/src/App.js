@@ -26,7 +26,7 @@ const App = () => {
 
   useEffect(addPersons,[])
 
-    let personsToShow=persons.filter(person => person.name.toLowerCase().includes(newFilter))
+  let personsToShow=persons.filter(person => person.name.toLowerCase().includes(newFilter))
   
 
   const addName = (event) => {
